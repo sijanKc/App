@@ -25,7 +25,7 @@ export default function Footer() {
                     </p>
                 </div>
 
-                {/* Personal & Project Links */}
+                {/* Personal Link */}
                 <div className="flex items-center gap-6">
                     <a
                         href="https://sijankc.com.np"
@@ -36,16 +36,6 @@ export default function Footer() {
                     >
                         <Globe size={18} className="group-hover:animate-pulse" />
                         <span className="text-xs font-medium">sijankc.com.np</span>
-                    </a>
-                    <a
-                        href="https://github.com/sijanKc/App"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2 text-gray-500 hover:text-white transition-colors group"
-                        title="GitHub Repository"
-                    >
-                        <Github size={18} className="group-hover:scale-110 transition-transform" />
-                        <span className="text-xs font-medium">GitHub</span>
                     </a>
                 </div>
 
