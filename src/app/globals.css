@@ -1,26 +1,149 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui;
+  --font-noto: var(--font-noto);
+  --font-mukta: var(--font-mukta);
+  --font-hind: var(--font-hind);
+  --font-tiro: var(--font-tiro);
+  --font-preeti: "Preeti", "cursive";
+  --font-kantipur: "Kantipur", "serif";
+  --font-sagarmatha: "Sagarmatha", "serif";
+
+  --color-nepal-red: #dc143c;
+  --color-nepal-blue: #003893;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg-color: #030014;
+  --text-main: #f8fafc;
+  --text-secondary: #94a3b8;
+  --card-bg: rgba(15, 23, 42, 0.6);
+  --bg-key: rgba(255, 255, 255, 0.05);
+  --border-color: rgba(255, 255, 255, 0.1);
+  --border-subtle: rgba(255, 255, 255, 0.05);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@keyframes spin-slow {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes spin-reverse-slow {
+  from {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+
+  to {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+}
+
+/* ── Custom font utilities ───────────────────────────────────────────────── */
+@layer utilities {
+  .font-noto {
+    font-family: var(--font-noto), 'Noto Sans Devanagari', sans-serif;
+  }
+
+  .font-mukta {
+    font-family: var(--font-mukta), 'Mukta', sans-serif;
+  }
+
+  .font-hind {
+    font-family: var(--font-hind), 'Hind', sans-serif;
+  }
+
+  .font-tiro {
+    font-family: var(--font-tiro), 'Tiro Devanagari HNS', serif;
+  }
+
+  .font-preeti {
+    font-family: var(--font-preeti), 'Preeti', cursive;
+  }
+
+  .font-kantipur {
+    font-family: var(--font-kantipur), 'Kantipur', serif;
+  }
+
+  .font-sagarmatha {
+    font-family: var(--font-sagarmatha), 'Sagarmatha', serif;
+  }
+}
+
+/* ── Base overrides ──────────────────────────────────────────────────────── */
+@layer base {
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+}
+
+/* ── Custom scrollbar ────────────────────────────────────────────────────── */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 4s ease-in-out infinite;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
+.animate-spin-reverse-slow {
+  animation: spin-reverse-slow 25s linear infinite;
+}
+
+/* ── Nepal flag–inspired gradient text ───────────────────────────────────── */
+.gradient-text {
+  background: linear-gradient(90deg, #dc143c, #3b82f6, #a855f7);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+textarea:focus {
+  outline: none;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
 }

@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# टाइपिंग अभ्यास (Typing Practice) ⌨️🇳🇵
 
-## Getting Started
+A premium, high-performance typing practice application designed for both Nepali Unicode and English learners. Built with a modern dark aesthetic and real-time feedback.
 
-First, run the development server:
+## ✨ Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Dual Language Support**: Seamlessly switch between Nepali (Unicode) and English.
+- **Multiple Nepali Fonts**: Support for Noto Sans, Mukta, Hind, Preeti, and more.
+- **Real-time Analytics**: Track your Words Per Minute (WPM) and Accuracy as you type.
+- **Start Practice Button**: Preparation-first flow to ensure you're ready before the timer starts.
+- **Keyboard Visualizer**: On-screen keyboard showing active keys and Nepali Unicode mappings.
+- **History & High Scores**: Track your progress over time and save your best records locally.
+- **Immersive Sound**: Tactile audio feedback for every keystroke.
+- **Pure Dark Mode**: Sleek, high-contrast violet aesthetic for long practice sessions.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Tech Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Framework**: [Next.js 14+ (App Router)](https://nextjs.org/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **Animations**: [Framer Motion](https://www.framer.com/motion/)
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **Persistence**: Browser LocalStorage
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🚀 Getting Started
 
-## Learn More
+1. **Install Dependencies**:
+   ```bash
+   npm install
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+2. **Run Development Server**:
+   ```bash
+   npm run dev
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. **Build for Production**:
+   ```bash
+   npm run build
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 👤 Author
 
-## Deploy on Vercel
+**Developed with ❤️ by Sijan KC**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This project was built to provide a modern tool for the Nepali community to enhance their typing skills in both native script and English.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+© 2026 Sijan KC. All Rights Reserved.
