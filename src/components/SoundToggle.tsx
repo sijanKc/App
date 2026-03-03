@@ -17,14 +17,13 @@ export default function SoundToggle({ enabled, onToggle }: SoundToggleProps) {
             whileTap={{ scale: 0.9 }}
             onClick={onToggle}
             className={`
-        w-9 h-9 rounded-xl flex items-center justify-center
-        bg-slate-900/5 dark:bg-white/10 border border-slate-200 dark:border-white/10 backdrop-blur-sm
-        transition-colors
-        ${enabled ? "text-green-400 hover:text-green-300" : "text-gray-500 hover:text-gray-300"}
+        w-10 h-10 rounded-xl flex items-center justify-center
+        bg-white border border-slate-100 shadow-sm transition-all
+        ${enabled ? "text-emerald-600 hover:bg-slate-50" : "text-slate-400 hover:bg-slate-50"}
       `}
             aria-label={enabled ? "Disable sound" : "Enable sound"}
         >
-            {enabled ? <Volume2 size={17} /> : <VolumeX size={17} />}
+            {enabled ? <Volume2 size={18} /> : <VolumeX size={18} />}
         </motion.button>
     );
 }

@@ -51,6 +51,8 @@ export const metadata: Metadata = {
   },
 };
 
+import { GameProvider } from "@/context/GameContext";
+
 export default function RootLayout({
   children,
 }: {
@@ -70,9 +72,12 @@ export default function RootLayout({
     >
       <body className="antialiased">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
-          {children}
+          <GameProvider>
+            {children}
+          </GameProvider>
         </ThemeProvider>
       </body>
     </html>
   );
 }
+

@@ -9,39 +9,39 @@ export default function Footer() {
     const currentYear = new Date().getFullYear();
 
     return (
-        <footer className="relative z-10 w-full mt-12 pb-8 px-4 border-t border-white/5 pt-8">
-            <div className="max-w-6xl mx-auto flex flex-col items-center gap-6">
+        <footer className="relative z-10 w-full mt-20 pb-12 px-6 border-t border-slate-200/60 pt-12">
+            <div className="max-w-7xl mx-auto flex flex-col items-center gap-8">
 
                 {/* Branding & Developer Credits */}
                 <div className="flex flex-col items-center text-center">
-                    <p className="text-gray-400 text-sm flex items-center gap-1.5 mb-2">
-                        Built with <Heart size={14} className="text-red-500 fill-red-500" /> by
-                        <span className="text-white font-bold hover:text-blue-400 transition-colors cursor-default">
+                    <p className="text-slate-500 font-medium text-sm flex items-center gap-2 mb-3">
+                        Crafted with <Heart size={16} className="text-rose-400 fill-rose-100" /> by
+                        <span className="text-slate-900 font-bold hover:text-indigo-600 transition-colors cursor-default">
                             Sijan KC
                         </span>
                     </p>
-                    <p className="text-gray-500 text-[10px] uppercase tracking-[0.2em]">
-                        © {currentYear} टाइपिंग अभ्यास (Typing Practice) • Made in Nepal 🇳🇵
+                    <p className="text-slate-400 text-[11px] font-bold uppercase tracking-[0.2em]">
+                        © {currentYear} टाइपिंग अभ्यास • Made in Nepal 🇳🇵
                     </p>
                 </div>
 
                 {/* Personal Link */}
-                <div className="flex items-center gap-6">
+                <div className="flex items-center gap-8">
                     <a
                         href="https://sijankc.com.np"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2 text-gray-500 hover:text-emerald-400 transition-colors group"
+                        className="flex items-center gap-2 text-slate-400 hover:text-indigo-600 transition-all group px-4 py-2 rounded-xl bg-slate-50 border border-slate-100"
                         title="Sijan KC Portfolio"
                     >
-                        <Globe size={18} className="group-hover:animate-pulse" />
-                        <span className="text-xs font-medium">sijankc.com.np</span>
+                        <Globe size={18} className="group-hover:rotate-12 transition-transform" />
+                        <span className="text-xs font-bold">sijankc.com.np</span>
                     </a>
                 </div>
 
                 {/* Anti-Copy Protection Hint */}
-                <div className="text-gray-600 text-[9px] select-none opacity-50">
-                    Original Software Architecture & Design by Sijan KC. All Rights Reserved.
+                <div className="text-slate-300 text-[10px] font-medium select-none uppercase tracking-widest">
+                    Original Software Design • Sijan KC
                 </div>
             </div>
         </footer>

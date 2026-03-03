@@ -73,3 +73,30 @@ export function saveHistory(entry: HistoryEntry): void {
 export function clearHistory(): void {
     localStorage.removeItem(HISTORY_KEY);
 }
+
+// ─── Key Errors (Heatmap) ───────────────────────────────────────────────────
+const KEY_ERRORS_KEY = "typingApp_keyErrors";
+
+export interface KeyErrorMap {
+    [key: string]: number;
+}
+
+export function getKeyErrors(): KeyErrorMap {
+    if (typeof window === "undefined") return {};
+    try {
+        return JSON.parse(localStorage.getItem(KEY_ERRORS_KEY) || "{}");
+    } catch {
+        return {};
+    }
+}
+
+export function saveKeyError(key: string): void {
+    if (!key || key === " ") return;
+    const errors = getKeyErrors();
+    errors[key] = (errors[key] || 0) + 1;
+    localStorage.setItem(KEY_ERRORS_KEY, JSON.stringify(errors));
+}
+
+export function clearKeyErrors(): void {
+    localStorage.removeItem(KEY_ERRORS_KEY);
+}

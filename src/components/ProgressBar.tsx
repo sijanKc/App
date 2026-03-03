@@ -13,12 +13,11 @@ export default function ProgressBar({ progress }: ProgressBarProps) {
     const clamped = Math.min(100, Math.max(0, progress));
 
     return (
-        <div className="w-full h-2.5 rounded-full bg-white/10 overflow-hidden">
+        <div className="w-full h-3 rounded-full bg-slate-100 overflow-hidden border border-slate-200/50 shadow-inner">
             <motion.div
                 className="h-full rounded-full"
                 style={{
-                    background:
-                        "linear-gradient(90deg, #dc143c 0%, #3b82f6 50%, #a855f7 100%)",
+                    background: "linear-gradient(90deg, #4f46e5 0%, #6366f1 100%)",
                 }}
                 initial={{ width: "0%" }}
                 animate={{ width: `${clamped}%` }}

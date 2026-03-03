@@ -20,7 +20,7 @@ export default function TimerSelector({
     disabled,
 }: TimerSelectorProps) {
     return (
-        <div className="flex items-center gap-1 p-1 rounded-xl bg-white/10 border border-white/10 backdrop-blur-sm">
+        <div className="flex items-center gap-1.5 p-1 rounded-2xl bg-white border border-slate-100 shadow-sm">
             {OPTIONS.map((opt) => (
                 <motion.button
                     key={opt}
@@ -28,11 +28,11 @@ export default function TimerSelector({
                     onClick={() => !disabled && onChange(opt)}
                     disabled={disabled}
                     className={`
-            px-3 py-1.5 rounded-lg text-sm font-semibold transition-all duration-200
-            ${disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
+            px-4 py-2.5 rounded-xl text-xs font-black transition-all duration-200 uppercase tracking-widest
+            ${disabled ? "opacity-40 cursor-not-allowed" : "cursor-pointer"}
             ${duration === opt
-                            ? "bg-blue-600 text-white shadow-md"
-                            : "text-gray-400 hover:text-white hover:bg-white/10"}
+                            ? "bg-slate-950 text-white shadow-md shadow-slate-200"
+                            : "text-slate-400 hover:text-slate-900 hover:bg-slate-50"}
           `}
                 >
                     {opt}s

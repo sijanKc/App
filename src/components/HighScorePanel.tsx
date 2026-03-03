@@ -18,27 +18,29 @@ export default function HighScorePanel({ scores, language }: HighScorePanelProps
         .slice(0, 5);
 
     return (
-        <div className="rounded-2xl bg-slate-900/5 dark:bg-white/5 border border-slate-200 dark:border-white/10 backdrop-blur-sm p-5">
-            <div className="flex items-center gap-2 mb-4">
-                <Trophy size={16} className="text-yellow-500 dark:text-yellow-400" />
-                <h3 className="text-sm font-semibold text-slate-900 dark:text-white uppercase tracking-widest">
-                    Best Scores
+        <div className="rounded-[32px] bg-white border border-slate-100 p-6 shadow-xl shadow-slate-200/50">
+            <div className="flex items-center gap-3 mb-6">
+                <div className="w-8 h-8 rounded-xl bg-amber-50 flex items-center justify-center border border-amber-100">
+                    <Trophy size={16} className="text-amber-500" />
+                </div>
+                <h3 className="text-xs font-black text-slate-900 uppercase tracking-[0.2em] italic">
+                    Best Performances
                 </h3>
             </div>
 
             {filtered.length === 0 ? (
-                <p className="text-gray-500 text-xs text-center py-4">
+                <p className="text-slate-400 text-[10px] font-black uppercase tracking-widest text-center py-8 italic border-2 border-dashed border-slate-50 rounded-2xl">
                     No records yet — start typing!
                 </p>
             ) : (
-                <ol className="space-y-2">
+                <ol className="space-y-3">
                     {filtered.map((s, i) => (
                         <li key={i} className="flex items-center justify-between
-              text-sm px-3 py-2 rounded-lg bg-slate-900/5 dark:bg-white/5 border border-slate-100 dark:border-white/5">
-                            <span className="text-gray-400 w-5 font-mono">{i + 1}.</span>
-                            <span className="font-bold text-emerald-400">{s.wpm} <span className="text-xs text-gray-500">WPM</span></span>
-                            <span className="text-purple-400">{s.accuracy}%</span>
-                            <span className="text-gray-500 text-xs">{s.duration}s</span>
+              text-xs px-4 py-3 rounded-2xl bg-slate-50 border border-white hover:border-indigo-100 transition-all shadow-sm">
+                            <span className="text-slate-300 w-5 font-black italic">{i + 1}.</span>
+                            <span className="font-black text-slate-950 italic">{s.wpm} <span className="text-[10px] text-slate-400 uppercase tracking-tighter not-italic ml-1">WPM</span></span>
+                            <span className="text-indigo-600 font-black italic">{s.accuracy}%</span>
+                            <span className="text-slate-400 font-black">{s.duration}s</span>
                         </li>
                     ))}
                 </ol>

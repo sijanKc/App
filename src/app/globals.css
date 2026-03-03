@@ -15,13 +15,16 @@
 }
 
 :root {
-  --bg-color: #030014;
-  --text-main: #f8fafc;
-  --text-secondary: #94a3b8;
-  --card-bg: rgba(15, 23, 42, 0.6);
-  --bg-key: rgba(255, 255, 255, 0.05);
-  --border-color: rgba(255, 255, 255, 0.1);
-  --border-subtle: rgba(255, 255, 255, 0.05);
+  --bg-color: #ffffff;
+  --text-main: #000000;
+  --text-secondary: #444444;
+  --card-bg: #ffffff;
+  --bg-key: #f8fafc;
+  --border-color: #e2e8f0;
+  --border-subtle: #f1f5f9;
+  --accent-soft: #fab1a0;
+  --accent-sage: #94a3b8;
+  --radius-xl: 24px;
 }
 
 @keyframes spin-slow {
@@ -99,21 +102,20 @@
 
 /* ── Custom scrollbar ────────────────────────────────────────────────────── */
 .custom-scrollbar::-webkit-scrollbar {
-  width: 4px;
+  width: 6px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 10px;
+  background: transparent;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
+  background: #e2e8f0;
   border-radius: 10px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.25);
+  background: #cbd5e1;
 }
 
 .animate-pulse-slow {
@@ -128,22 +130,15 @@
   animation: spin-reverse-slow 25s linear infinite;
 }
 
-/* ── Nepal flag–inspired gradient text ───────────────────────────────────── */
-.gradient-text {
-  background: linear-gradient(90deg, #dc143c, #3b82f6, #a855f7);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
 textarea:focus {
   outline: none;
 }
 
 .glass-card {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 1.5rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.02);
 }

@@ -81,6 +81,9 @@ export function useTypingEngine({
                 } else {
                     const { playError } = await import("@/lib/soundEngine");
                     playError();
+                    // Record the error for heatmap (the character that SHOULD have been typed)
+                    const { saveKeyError } = await import("@/lib/storage");
+                    saveKeyError(segments[lastIdx]);
                 }
             }
 

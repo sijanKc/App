@@ -18,7 +18,7 @@ export default function LanguageToggle({
     disabled,
 }: LanguageToggleProps) {
     return (
-        <div className="flex items-center gap-2 p-1 rounded-xl bg-white/10 border border-white/10 backdrop-blur-sm">
+        <div className="flex items-center gap-1.5 p-1 rounded-2xl bg-white border border-slate-100 shadow-sm">
             {(["nepali", "english"] as const).map((lang) => (
                 <motion.button
                     key={lang}
@@ -26,14 +26,16 @@ export default function LanguageToggle({
                     onClick={() => !disabled && onChange(lang)}
                     disabled={disabled}
                     className={`
-            relative px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300
-            ${disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
+            relative px-5 py-2.5 rounded-xl text-xs font-black transition-all duration-300 uppercase tracking-widest
+            ${disabled ? "opacity-40 cursor-not-allowed" : "cursor-pointer"}
             ${language === lang
-                            ? "bg-gradient-to-r from-red-600 to-blue-700 text-white shadow-lg"
-                            : "text-gray-400 hover:text-white"}
+                            ? "bg-slate-950 text-white shadow-md shadow-slate-200"
+                            : "text-slate-400 hover:text-slate-900 hover:bg-slate-50"}
           `}
                 >
-                    {lang === "nepali" ? "🇳🇵 नेपाली" : "🇬🇧 English"}
+                    <span className="relative z-10 flex items-center gap-2">
+                        {lang === "nepali" ? "🇳🇵 NP" : "🇬🇧 EN"}
+                    </span>
                 </motion.button>
             ))}
         </div>

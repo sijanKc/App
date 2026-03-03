@@ -5,9 +5,6 @@ export const NEPALI_FONTS: { label: string; value: string; className: string }[]
     { label: "Mukta", value: "mukta", className: "font-mukta" },
     { label: "Hind", value: "hind", className: "font-hind" },
     { label: "Noto Serif Devanagari", value: "tiro", className: "font-tiro" },
-    { label: "Preeti", value: "preeti", className: "font-preeti" },
-    { label: "Kantipur", value: "kantipur", className: "font-kantipur" },
-    { label: "Sagarmatha", value: "sagarmatha", className: "font-sagarmatha" },
 ];
 
 interface FontSelectorProps {
@@ -26,14 +23,14 @@ export default function FontSelector({ selectedFont, onChange }: FontSelectorPro
                 value={selectedFont}
                 onChange={(e) => onChange(e.target.value)}
                 className="
-          bg-white/10 border border-white/20 text-white text-sm rounded-lg
-          px-3 py-1.5 backdrop-blur-sm cursor-pointer
-          focus:outline-none focus:ring-2 focus:ring-blue-500
-          [&>option]:bg-gray-900
+          bg-white border border-slate-200 text-slate-900 text-[10px] font-black uppercase tracking-widest rounded-xl
+          px-4 py-2 shadow-sm cursor-pointer
+          focus:outline-none focus:ring-2 focus:ring-indigo-500/20
+          transition-all
         "
             >
                 {NEPALI_FONTS.map((f) => (
-                    <option key={f.value} value={f.value}>
+                    <option key={f.value} value={f.value} className="bg-white text-slate-900">
                         {f.label}
                     </option>
                 ))}

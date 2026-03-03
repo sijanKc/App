@@ -2,21 +2,32 @@
 
 import { useState, useCallback, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { RotateCcw, Keyboard } from "lucide-react";
+import Link from "next/link";
+import {
+  RotateCcw,
+  Keyboard,
+  GraduationCap,
+  Sparkles,
+  Music,
+  History as HistoryIcon
+} from "lucide-react";
 
 // Components
 import TypingArea from "@/components/TypingArea";
 import StatsBar from "@/components/StatsBar";
 import ProgressBar from "@/components/ProgressBar";
 import LanguageToggle from "@/components/LanguageToggle";
-import FontSelector, { NEPALI_FONTS, getFontClass } from "@/components/FontSelector";
+import FontSelector, { getFontClass } from "@/components/FontSelector";
 import TimerSelector from "@/components/TimerSelector";
 import SoundToggle from "@/components/SoundToggle";
+import SoundProfileSelector from "@/components/SoundProfileSelector";
 import ResultCard from "@/components/ResultCard";
 import Footer from "@/components/Footer";
 import HighScorePanel from "@/components/HighScorePanel";
 import HistoryPanel from "@/components/HistoryPanel";
 import KeyboardVisualizer from "@/components/KeyboardVisualizer";
+import ProgressInsights from "@/components/ProgressInsights";
+import { LevelBadge } from "@/components/game/GameStatus";
 
 // Hooks
 import { useTypingEngine } from "@/hooks/useTypingEngine";
@@ -24,7 +35,7 @@ import { useTimer } from "@/hooks/useTimer";
 import { useStats } from "@/hooks/useStats";
 
 // Data & Storage
-import { getRandomPassage } from "@/data/passages";
+import { getRandomPassage, nepaliPassages } from "@/data/passages";
 import {
   getHighScores,
   saveHighScore,
@@ -41,6 +52,7 @@ export default function Home() {
   const [duration, setDuration] = useState(60);
   const [selectedFont, setSelectedFont] = useState("noto");
   const [soundEnabled, setSoundEnabled] = useState(true);
+  const [targetWpm, setTargetWpm] = useState(40);
 
   // ── Passage ────────────────────────────────────────────────────────────────
   const [passage, setPassage] = useState("");
@@ -186,85 +198,159 @@ export default function Home() {
       style={{ backgroundColor: "var(--bg-color)" }}
     >
 
-      {/* ── Simplified background ── */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden opacity-20 dark:opacity-10">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
-          w-[800px] h-[800px] rounded-full border border-blue-500/10" />
+      {/* ── Minimal background ── */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden opacity-30">
+        <div className="absolute top-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-peach-100/30 blur-[120px]" />
+        <div className="absolute bottom-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-blue-100/30 blur-[120px]" />
       </div>
 
       {/* ── Header ── */}
-      <header className="relative z-10 w-full px-4 py-4 flex items-center justify-between
-        max-w-6xl mx-auto">
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl flex items-center justify-center
-            bg-gradient-to-br from-red-600 to-blue-700 shadow-lg">
-            <Keyboard size={18} className="text-white" />
+      <header className="relative z-10 w-full px-6 py-8 flex items-center justify-between max-w-7xl mx-auto">
+        <div className="flex items-center gap-4">
+          <div className="w-12 h-12 rounded-2xl flex items-center justify-center bg-white shadow-sm border border-slate-100">
+            <Keyboard size={24} className="text-slate-800" />
           </div>
           <div>
-            <h1 className="text-lg font-bold text-white leading-tight">
+            <h1 className="text-xl font-bold text-slate-900 tracking-tight">
               टाइपिंग अभ्यास
             </h1>
-            <p className="text-[11px] text-gray-400 leading-none">Typing Practice</p>
+            <p className="text-xs text-slate-500 font-medium tracking-wide">Flow State Practice</p>
           </div>
         </div>
 
-        {/* Header controls */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
+          <Link
+            href="/games"
+            className="flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-white border border-slate-100 text-slate-600 hover:bg-slate-50 transition-all font-bold text-sm shadow-sm"
+          >
+            <Sparkles size={18} className="text-amber-400" />
+            Games
+          </Link>
+          <Link
+            href="/learn"
+            className="flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-slate-900 text-white hover:bg-slate-800 transition-all font-bold text-sm shadow-md shadow-slate-200"
+          >
+            <GraduationCap size={18} />
+            Learn
+          </Link>
+          <div className="w-px h-6 bg-slate-200 mx-2" />
           <SoundToggle enabled={soundEnabled} onToggle={() => setSoundEnabled((s) => !s)} />
+          <SoundProfileSelector />
         </div>
       </header>
 
       {/* ── Main content ── */}
-      <main className="relative z-10 max-w-6xl mx-auto px-4 pb-10">
+      <main className={`relative z-10 max-w-6xl mx-auto px-6 transition-all duration-500 ${hasStarted ? 'pt-4 pb-12' : 'pt-12 pb-20'}`}>
+
+        {/* Hero Section - Hidden when typing starts for vertical focus */}
+        <AnimatePresence>
+          {!hasStarted && (
+            <motion.div
+              initial={{ opacity: 0, height: "auto" }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0, marginBottom: 0 }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+              className="text-center mb-16 overflow-hidden"
+            >
+              <motion.h2
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-5xl font-extrabold text-slate-900 mb-4 tracking-tight"
+              >
+                Master your flow.
+              </motion.h2>
+              <motion.p
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+                className="text-lg text-slate-500 font-medium"
+              >
+                Practice typing in a peaceful, focused environment.
+              </motion.p>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* Control row */}
-        <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
-          <div className="flex flex-wrap items-center gap-2">
+        <motion.div
+          animate={{ marginBottom: hasStarted ? "1.5rem" : "2.5rem" }}
+          className="flex flex-wrap items-center justify-center gap-4"
+        >
+          <div className="flex items-center gap-2 px-1 py-1 rounded-2xl bg-slate-100/50 border border-slate-200/60">
             <LanguageToggle
               language={language}
               onChange={handleLanguageChange}
               disabled={isActive}
             />
+          </div>
+
+          <div className="flex items-center gap-2 px-1 py-1 rounded-2xl bg-slate-100/50 border border-slate-200/60">
             <TimerSelector
               duration={duration}
               onChange={handleDurationChange}
               disabled={isActive}
             />
           </div>
-          <div className="flex items-center gap-3">
-            {language === "nepali" && (
-              <div className="flex items-center gap-2">
-                <span className="text-xs text-gray-400 uppercase tracking-widest font-semibold">Font</span>
-                <FontSelector selectedFont={selectedFont} onChange={setSelectedFont} />
-              </div>
-            )}
-            <motion.button
-              whileTap={{ scale: 0.93 }}
-              onClick={handleRestart}
-              className="flex items-center gap-1.5 px-4 py-2 rounded-xl
-                bg-white/10 border border-white/10 text-gray-300
-                hover:text-white hover:bg-white/15 text-sm font-medium
-                transition-all backdrop-blur-sm"
-            >
-              <RotateCcw size={14} />
-              Restart
-            </motion.button>
-          </div>
-        </div>
 
-        {/* Two-column layout on desktop */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6">
+          <div className="flex items-center gap-3 px-4 py-2 rounded-2xl bg-white border border-slate-200/60 shadow-sm">
+            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Target</span>
+            <input
+              type="number"
+              value={targetWpm}
+              onChange={(e) => setTargetWpm(Math.max(10, parseInt(e.target.value) || 10))}
+              className="w-10 bg-transparent text-slate-900 text-sm font-bold outline-none"
+              min="10"
+              max="200"
+            />
+            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">WPM</span>
+          </div>
+
+          {language === "nepali" && (
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => {
+                setDuration(300);
+                const formalPassages = nepaliPassages.slice(-2);
+                setPassage(formalPassages[Math.floor(Math.random() * formalPassages.length)]);
+                resetEngine();
+                resetTimer();
+                setHasStarted(false);
+              }}
+              className="px-6 py-2.5 rounded-2xl bg-red-50 text-red-600 border border-red-100 text-xs font-bold uppercase tracking-wider hover:bg-red-100 transition-all shadow-sm"
+            >
+              Lok Sewa Mode
+            </motion.button>
+          )}
+
+          <div className="w-px h-6 bg-slate-200 mx-1 hidden sm:block" />
+
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={handleRestart}
+            className="flex items-center gap-2 px-6 py-2.5 rounded-2xl bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 text-sm font-bold transition-all shadow-sm"
+          >
+            <RotateCcw size={16} />
+            Restart
+          </motion.button>
+        </motion.div>
+
+        {/* Two-column layout on desktop - Adjusted to comfortably fit sidebar */}
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-8">
 
           {/* ── LEFT: Typing zone ── */}
           <div className="flex flex-col gap-5">
 
             {/* Stats */}
-            <StatsBar
-              wpm={wpm}
-              accuracy={accuracy}
-              timeLeft={timeLeft}
-              duration={duration}
-            />
+            <div className="mb-0">
+              <StatsBar
+                wpm={wpm}
+                accuracy={accuracy}
+                timeLeft={timeLeft}
+                duration={duration}
+              />
+            </div>
 
             {/* Progress bar */}
             <ProgressBar progress={progress} />
@@ -279,6 +365,7 @@ export default function Home() {
               language={language}
               isLocked={!hasStarted}
               onStart={() => setHasStarted(true)}
+              targetWpm={targetWpm}
             />
 
             {/* Keyboard Visualizer */}
@@ -286,21 +373,7 @@ export default function Home() {
               <KeyboardVisualizer language={language} />
             )}
 
-            {/* Hint */}
-            <AnimatePresence>
-              {!isActive && !isFinished && timeLeft === duration && (
-                <motion.p
-                  initial={{ opacity: 0, y: 4 }}
-                  animate={{ opacity: 0.5, y: 0 }}
-                  exit={{ opacity: 0 }}
-                  className="text-center text-sm text-gray-500 mt-1"
-                >
-                  {language === "nepali"
-                    ? "⌨️  टाइप गर्न सुरु गर्नुहोस् — टाइमर स्वचालित रूपमा सुरु हुन्छ"
-                    : "⌨️  Start typing — the timer starts automatically"}
-                </motion.p>
-              )}
-            </AnimatePresence>
+
 
             {/* Error count */}
             {typedText.length > 0 && (
@@ -315,17 +388,17 @@ export default function Home() {
           <div className="flex flex-col gap-4">
 
             {/* Tab switcher */}
-            <div className="flex gap-1 p-1 rounded-xl bg-white/5 border border-white/10">
+            <div className="flex gap-1 p-1 rounded-2xl bg-slate-100 border border-slate-200/60">
               {(["scores", "history"] as const).map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
-                  className={`flex-1 py-1.5 rounded-lg text-xs font-semibold capitalize transition-all
+                  className={`flex-1 py-2 rounded-xl text-xs font-bold capitalize transition-all
                     ${activeTab === tab
-                      ? "bg-white/15 text-white"
-                      : "text-gray-500 hover:text-gray-300"}`}
+                      ? "bg-white text-slate-900 shadow-sm"
+                      : "text-slate-500 hover:text-slate-800"}`}
                 >
-                  {tab === "scores" ? "🏆 Best Scores" : "📋 History"}
+                  {tab === "scores" ? "🏆 Best" : "📋 History"}
                 </button>
               ))}
             </div>
@@ -336,12 +409,13 @@ export default function Home() {
               <HistoryPanel history={history} onClear={handleClearHistory} />
             )}
 
+            <ProgressInsights />
+
             {/* Nepal info card */}
-            <div className="rounded-2xl bg-white/5 border border-white/10 p-5 text-center">
-              <div className="text-3xl mb-2">🇳🇵</div>
-              <p className="text-xs text-gray-400 leading-relaxed">
-                Supports Nepali Unicode Devanagari script with multiple font choices.
-                Practise daily to improve your typing speed!
+            <div className="rounded-3xl bg-white border border-slate-200/60 p-6 text-center shadow-sm">
+              <div className="text-4xl mb-3">🇳🇵</div>
+              <p className="text-xs text-slate-500 font-medium leading-relaxed">
+                Native support for Nepali Unicode. Choose your favorite font and start your flow.
               </p>
             </div>
           </div>
